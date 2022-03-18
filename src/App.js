@@ -3,12 +3,19 @@ import Sidebar from "components/Sidebar";
 import Dashboard from "pages/Dashboard";
 import Tables from "pages/Tables";
 import Footer from "components/Footer";
-import {DashboardRoute, AccountsRoute, EditAccountRoute, DetailsAccountRoute} from "routes/PageRoutes";
+import {
+  DashboardRoute,
+  AccountsRoute,
+  EditAccountRoute,
+  DetailsAccountRoute,
+} from "routes/PageRoutes";
 
 // Tailwind CSS Style Sheet
 import "assets/styles/tailwind.css";
 import EditAccount from "pages/EditAccount";
 import AccountDetail from "pages/AccountDetail";
+import { DeleteAccountRoute } from "routes/PageRoutes";
+import DeleteAccount from "pages/DeleteAccount";
 
 function App() {
   return (
@@ -20,6 +27,7 @@ function App() {
           <Route exact path={AccountsRoute} component={Tables} />
           <Route path={EditAccountRoute} component={EditAccount} />
           <Route path={DetailsAccountRoute} component={AccountDetail} />
+          <Route path={DeleteAccountRoute} component={DeleteAccount} />
           <Redirect from="*" to="/" />
         </Switch>
         <Footer />

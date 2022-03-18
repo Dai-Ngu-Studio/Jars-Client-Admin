@@ -13,6 +13,7 @@ import {
   SET_DETAIL_ACCOUNT,
   CHANG_PAGE,
   DISPLAY_ALERT,
+  SET_DELETE_ACCOUNT,
 } from "./action";
 
 const reducer = (state, action) => {
@@ -68,6 +69,30 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === SET_DETAIL_ACCOUNT) {
+    const account = state.accounts.find(
+      (account) => account.id === action.payload.id
+    );
+    const {
+      id,
+      isAdmin,
+      email,
+      displayName,
+      lastLoginDate,
+      photoUrl,
+      transactionCount,
+    } = account;
+    return {
+      ...state,
+      accountId: id,
+      displayName,
+      lastLoginDate,
+      isAdmin,
+      email,
+      photoUrl,
+      transactionCount,
+    };
+  }
+  if (action.type === SET_DELETE_ACCOUNT) {
     const account = state.accounts.find(
       (account) => account.id === action.payload.id
     );
