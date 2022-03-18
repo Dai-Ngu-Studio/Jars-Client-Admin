@@ -3,6 +3,7 @@ import Sidebar from "components/Sidebar";
 import Dashboard from "pages/Dashboard";
 import Tables from "pages/Tables";
 import Footer from "components/Footer";
+import {DashboardRoute, AccountsRoute, EditAccountRoute, DetailsAccountRoute} from "routes/PageRoutes";
 
 // Tailwind CSS Style Sheet
 import "assets/styles/tailwind.css";
@@ -15,10 +16,10 @@ function App() {
       <Sidebar />
       <div className="md:ml-64">
         <Switch>
-          <Route exact path="/" component={Dashboard} />
-          <Route exact path="/tables" component={Tables} />
-          <Route path="/tables/edit-account" component={EditAccount} />
-          <Route path="/tables/account-detail" component={AccountDetail} />
+          <Route exact path={DashboardRoute} component={Dashboard} />
+          <Route exact path={AccountsRoute} component={Tables} />
+          <Route path={EditAccountRoute} component={EditAccount} />
+          <Route path={DetailsAccountRoute} component={AccountDetail} />
           <Redirect from="*" to="/" />
         </Switch>
         <Footer />

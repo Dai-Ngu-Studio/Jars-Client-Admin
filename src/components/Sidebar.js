@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import AdminNavbar from "./AdminNavbar";
 import Icon from "@material-tailwind/react/Icon";
 import H6 from "@material-tailwind/react/Heading6";
+import {DashboardRoute, AccountsRoute} from "routes/PageRoutes";
 
 export default function Sidebar() {
   const [showSidebar, setShowSidebar] = useState("-left-64");
@@ -27,7 +28,7 @@ export default function Sidebar() {
             <ul className="flex-col min-w-full flex list-none">
               <li className="rounded-lg mb-4">
                 <NavLink
-                  to="/"
+                  to={DashboardRoute}
                   exact
                   className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
                   activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
@@ -38,7 +39,7 @@ export default function Sidebar() {
               </li>
               <li className="rounded-lg mb-2 ">
                 <NavLink
-                  to="/tables"
+                  to={AccountsRoute}
                   className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
                   activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
                 >

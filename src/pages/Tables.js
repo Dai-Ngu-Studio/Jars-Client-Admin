@@ -1,4 +1,3 @@
-import { SearchContainer } from "components/SearchContainer";
 import StatusCard from "components/StatusCard";
 import TableCard from "components/TableCard";
 import { useAppContext } from "context/appContext";
@@ -59,11 +58,10 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="px-3 md:px-8 h-auto -mt-24">
+      <div className="px-3 md:px-8 h-auto">
         <div className="container mx-auto max-w-full">
           <div className="grid grid-cols-1 px-4 mb-16">
-            <SearchContainer />
-            <TableCard accounts={accounts} />;
+            <TableCard accounts={accounts} />
           </div>
         </div>
       </div>

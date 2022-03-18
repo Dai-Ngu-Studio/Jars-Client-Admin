@@ -41,10 +41,15 @@ const initialState = {
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+
+  const token = '...';
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const authFetch = axios.create({
-    baseURL: "https://localhost:8001/api/v1",
+    baseURL: 'https://localhost:8001/api/v1',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    }
   });
 
   const handleChange = ({ name, value }) => {
