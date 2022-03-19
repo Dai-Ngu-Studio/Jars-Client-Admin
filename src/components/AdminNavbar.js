@@ -5,6 +5,7 @@ import Image from "@material-tailwind/react/Image";
 import Dropdown from "@material-tailwind/react/Dropdown";
 import DropdownItem from "@material-tailwind/react/DropdownItem";
 import ProfilePicture from "assets/img/team-1-800x800.jpg";
+import { auth } from "../firebase/config";
 
 export default function AdminNavbar({ showSidebar, setShowSidebar }) {
   const location = useLocation().pathname;
@@ -56,7 +57,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                 color="transparent"
                 buttonText={
                   <div className="w-12">
-                    <Image src={ProfilePicture} rounded />
+                    <Image src={auth.currentUser.photoURL} rounded />
                   </div>
                 }
                 rounded
@@ -65,7 +66,9 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                   color: "transparent",
                 }}
               >
-                <DropdownItem color="lightBlue">Logout</DropdownItem>
+                <DropdownItem color="lightBlue" onClick={() => auth.signOut()}>
+                  Logout
+                </DropdownItem>
               </Dropdown>
             </div>
           </div>
