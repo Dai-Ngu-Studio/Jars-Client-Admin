@@ -17,7 +17,7 @@ export default function AuthProvider({ children }) {
           photoURL,
           email,
         });
-        history.push("/overview");
+        history.push("/");
 
         return;
       }

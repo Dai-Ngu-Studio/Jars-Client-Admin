@@ -6,9 +6,31 @@ import Dropdown from "@material-tailwind/react/Dropdown";
 import DropdownItem from "@material-tailwind/react/DropdownItem";
 import ProfilePicture from "assets/img/team-1-800x800.jpg";
 import { auth } from "../firebase/config";
+import {
+  DashboardRoute,
+  AccountsRoute,
+  EditAccountRoute,
+  DetailsAccountRoute,
+} from "routes/PageRoutes";
 
 export default function AdminNavbar({ showSidebar, setShowSidebar }) {
   const location = useLocation().pathname;
+
+  let pageName = "";
+  switch (location) {
+    case DashboardRoute:
+      pageName = "DASHBOARD";
+      break;
+    case AccountsRoute:
+      pageName = "Accounts";
+      break;
+    case EditAccountRoute:
+      pageName = "Edit";
+      break;
+    case DetailsAccountRoute:
+      pageName = "Details";
+      break;
+  }
 
   return (
     <nav className="bg-light-blue-500 md:ml-64 py-6 px-3">
@@ -46,9 +68,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
 
         <div className="flex justify-between items-center w-full">
           <h4 className="uppercase text-white text-sm tracking-wider mt-1">
-            {location === "/"
-              ? "DASHBOARD"
-              : location.toUpperCase().replace("/", "")}
+            {pageName}
           </h4>
 
           <div className="flex">
@@ -57,7 +77,14 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                 color="transparent"
                 buttonText={
                   <div className="w-12">
-                    <Image src={auth.currentUser.photoURL} rounded />
+                    <Image
+                      src={
+                        auth.currentUser
+                          ? auth.currentUser.photoURL
+                          : ProfilePicture
+                      }
+                      rounded
+                    />
                   </div>
                 }
                 rounded
