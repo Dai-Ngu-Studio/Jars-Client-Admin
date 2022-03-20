@@ -52,7 +52,7 @@ const AppProvider = ({ children }) => {
   async function createAxios() {
     return auth.currentUser.getIdToken().then(async (idToken) => {
       return axios.create({
-        baseURL: process.env.BASE_API_URL,
+        baseURL: process.env.REACT_APP_BASE_API_URL,
         headers: {
           Authorization: "Bearer " + idToken,
         },

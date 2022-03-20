@@ -12,7 +12,11 @@ const _login = async () => {
         const bodyParameters = {}; //empty body
         const config = { headers: { Authorization: `Bearer ${idToken}` } };
         axios
-          .post(process.env.BASE_API_URL + "/accounts/login", {}, config)
+          .post(
+            process.env.REACT_APP_BASE_API_URL + "/accounts/login",
+            {},
+            config
+          )
           .then((response) => {
             if (response.data.isAdmin == false) {
               auth.signOut();
