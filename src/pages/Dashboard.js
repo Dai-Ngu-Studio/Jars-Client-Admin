@@ -1,8 +1,17 @@
 import StatusCard from "components/StatusCard";
 import ChartLine from "components/ChartLine";
 import ChartBar from "components/ChartBar";
+import { useAppContext } from "context/appContext";
+import { useEffect } from "react";
 
 export default function Dashboard() {
+  const { getGoogleAnalytics, report } = useAppContext();
+
+  useEffect(() => {
+    getGoogleAnalytics();
+  }, []);
+
+  console.log(report);
   return (
     <>
       <div className="bg-light-blue-500 px-3 md:px-8 h-40" />
@@ -11,7 +20,7 @@ export default function Dashboard() {
         <div className="container mx-auto max-w-full">
           <div className="grid grid-cols-1 xl:grid-cols-5">
             <div className="xl:col-start-1 xl:col-end-4 px-4 mb-14">
-              <ChartLine />
+              <ChartLine report={report} />
             </div>
             <div className="xl:col-start-4 xl:col-end-6 px-4 mb-14">
               <ChartBar />

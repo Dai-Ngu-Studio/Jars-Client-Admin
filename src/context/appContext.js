@@ -40,7 +40,7 @@ const initialState = {
   page: 1,
   size: 10,
   search: "",
-  reportData: {},
+  report: {},
   transactions: 0,
 };
 
@@ -52,7 +52,7 @@ const AppProvider = ({ children }) => {
   async function createAxios() {
     return auth.currentUser.getIdToken().then(async (idToken) => {
       return axios.create({
-        baseURL: "http://jars-api.software/api/v1",
+        baseURL: process.env.BASE_API_URL,
         headers: {
           Authorization: "Bearer " + idToken,
         },
@@ -72,7 +72,7 @@ const AppProvider = ({ children }) => {
   const clearAlert = () => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT });
-    }, 3000);
+    }, 5000);
   };
 
   const getAccounts = async () => {
@@ -167,10 +167,11 @@ const AppProvider = ({ children }) => {
       let authFetch = await createAxios();
       const { data } = await authFetch(`/cloud/analytics`);
       const { report, transactions } = data;
+      console.log(data);
       dispatch({
         type: GET_GOOGLE_ANALYTICS_SUCCESS,
         payload: {
-          reportData: report,
+          report,
           transactions,
         },
       });

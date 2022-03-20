@@ -62,7 +62,7 @@ const reducer = (state, action) => {
   if (action.type === GET_GOOGLE_ANALYTICS_SUCCESS) {
     return {
       ...state,
-      reportData: action.payload.reportData,
+      report: action.payload.report,
       transactions: action.payload.transactions,
     };
   }

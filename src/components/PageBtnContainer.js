@@ -32,7 +32,11 @@ const PageBtnContainer = () => {
       </PaginationItem>
       {pages.map((pageNumber) => {
         return (
-          <button type="button" onClick={() => changePage(pageNumber)}>
+          <button
+            type="button"
+            onClick={() => changePage(pageNumber)}
+            key={pageNumber}
+          >
             <PaginationItem
               color={pageNumber === page ? "lightBlue" : "blueGray"}
               ripple="light"

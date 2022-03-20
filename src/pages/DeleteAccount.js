@@ -22,16 +22,15 @@ const DeleteAccount = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     deleteAccount(accountId);
-    //console.log(accountId);
   };
 
   useEffect(() => {
-    if (accountId) {
+    if (showAlert == true) {
       setTimeout(() => {
         navigate.push(AccountsRoute);
-      }, 3000);
+      }, 2000);
     }
-  }, [navigate]);
+  }, [showAlert, navigate]);
 
   let date = moment(lastLoginDate);
   date = date.format("MMM Do, YYYY");
