@@ -62,8 +62,10 @@ const reducer = (state, action) => {
   if (action.type === GET_GOOGLE_ANALYTICS_SUCCESS) {
     return {
       ...state,
-      report: action.payload.report,
-      transactions: action.payload.transactions,
+      active28DayReport: action.payload.active28DayReport,
+      newReport: action.payload.newReport,
+      totalReport: action.payload.totalReport,
+      todayTransactions: action.payload.todayTransactions,
     };
   }
   if (action.type === SET_EDIT_ACCOUNT) {

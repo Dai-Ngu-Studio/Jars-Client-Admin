@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useReducer, createContext } from "react";
 import reducer from "./reducer";
-import firebase, { auth } from "../firebase/config";
+import { auth } from "../firebase/config";
 
 import {
   HANDLE_CHANGE,
@@ -166,13 +166,19 @@ const AppProvider = ({ children }) => {
     try {
       let authFetch = await createAxios();
       const { data } = await authFetch(`/cloud/analytics`);
-      const { report, transactions } = data;
-      console.log(data);
+      const { reports, todayTransactions } = data;
+
+      let active28DayReport = reports.active28DayUsers;
+      let newReport = reports.newUsers;
+      let totalReport = reports.totalUsers;
+
       dispatch({
         type: GET_GOOGLE_ANALYTICS_SUCCESS,
         payload: {
-          report,
-          transactions,
+          active28DayReport,
+          newReport,
+          totalReport,
+          todayTransactions,
         },
       });
     } catch (error) {

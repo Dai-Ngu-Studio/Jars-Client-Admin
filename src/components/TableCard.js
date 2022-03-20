@@ -4,7 +4,6 @@ import CardBody from "@material-tailwind/react/CardBody";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { useAppContext } from "context/appContext";
-
 import PageBtnContainer from "./PageBtnContainer";
 import { LeadText } from "@material-tailwind/react";
 import Icon from "@material-tailwind/react/Icon";
@@ -41,6 +40,7 @@ export default function CardTable({ accounts }) {
           <table className="items-center w-full bg-transparent border-collapse table-fixed">
             <thead>
               <tr>
+                <th className="border-b border-solid border-gray-200 py-3 whitespace-nowrap text w-6 sm:w-8 md:w-10"></th>
                 <th className="px-2 text-purple-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left w-4 sm:w-16 2xl:w-72">
                   User UID
                 </th>
@@ -66,6 +66,9 @@ export default function CardTable({ accounts }) {
                 accounts.map((account) => {
                   return (
                     <tr key={account.id} className="hover:bg-neutral-200">
+                      <td className="border-b border-gray-200 align-middle font-light">
+                        <img src={account.photoUrl} className="rounded-full h-8 ml-1" />
+                      </td>
                       <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left truncate">
                         {account.id}
                       </td>
@@ -108,13 +111,6 @@ export default function CardTable({ accounts }) {
                           >
                             <Icon name="delete" size="xl" />
                           </Link>
-                          {/* <button
-                            className="mr-1 shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-1 lg:py-2 px-1 lg:px-3 rounded"
-                            type="button"
-                            onClick={() => deleteAccount(account.id)}
-                          >
-                            <Icon name="delete" size="xl" />
-                          </button> */}
                         </div>
                       </td>
                     </tr>
