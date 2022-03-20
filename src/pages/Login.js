@@ -12,7 +12,7 @@ const _login = async () => {
         const bodyParameters = {}; //empty body
         const config = { headers: { Authorization: `Bearer ${idToken}` } };
         axios
-          .post("http://jars-api.software/api/v1/accounts/login", {}, config)
+          .post(process.env.BASE_API_URL + "/accounts/login", {}, config)
           .then((response) => {
             if (response.data.isAdmin == false) {
               auth.signOut();
