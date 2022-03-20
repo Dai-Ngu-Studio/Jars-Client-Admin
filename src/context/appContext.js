@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useReducer, createContext } from "react";
 import reducer from "./reducer";
+import firebase, { auth } from "../firebase/config";
 
 import {
   HANDLE_CHANGE,
@@ -18,6 +19,8 @@ import {
   CHANG_PAGE,
   DISPLAY_ALERT,
   SET_DELETE_ACCOUNT,
+  GET_GOOGLE_ANALYTICS_BEGIN,
+  GET_GOOGLE_ANALYTICS_SUCCESS,
 } from "./action";
 
 const initialState = {
@@ -37,14 +40,17 @@ const initialState = {
   page: 1,
   size: 10,
   search: "",
-  report: {},
+  reportData: {},
   transactions: 0,
 };
 
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const token = "...";
+  let token;
+  auth.currentUser.getIdToken().then(async (idToken) => {
+    token = idToken;
+  });
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const authFetch = axios.create({
@@ -119,7 +125,7 @@ const AppProvider = ({ children }) => {
       const tmp = isAdmin === "true" || isAdmin === "false";
       await authFetch.put(`/accounts/${state.accountId}`, {
         id,
-        tmp,
+        isAdmin: tmp,
         email,
         displayName,
         photoUrl,
@@ -152,6 +158,23 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CHANG_PAGE, payload: { page } });
   };
 
+  const getGoogleAnalytics = async () => {
+    dispatch({ type: GET_GOOGLE_ANALYTICS_BEGIN });
+    try {
+      const { data } = await authFetch(`/cloud/analytics`);
+      const { report, transactions } = data;
+      dispatch({
+        type: GET_GOOGLE_ANALYTICS_SUCCESS,
+        payload: {
+          reportData: report,
+          transactions,
+        },
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -165,6 +188,7 @@ const AppProvider = ({ children }) => {
         changePage,
         displayAlert,
         setDeleteAccount,
+        getGoogleAnalytics,
       }}
     >
       {children}

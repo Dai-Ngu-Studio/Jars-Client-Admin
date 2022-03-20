@@ -14,9 +14,7 @@ import { SearchContainer } from "components/SearchContainer";
 import { DeleteAccountRoute } from "routes/PageRoutes";
 
 export default function CardTable({ accounts }) {
-  let date = moment(accounts.lastLoginDate);
-  date = date.format("MMM Do, YYYY");
-
+  let date;
   const { setEditAccount, setDeleteAccount, setAccountDetail, numOfPages } =
     useAppContext();
 
@@ -78,7 +76,11 @@ export default function CardTable({ accounts }) {
                         {account.email}
                       </td>
                       <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left truncate">
-                        {date}
+                        {
+                          (date = moment(account.lastLoginDate).format(
+                            "MMM Do, YYYY"
+                          ))
+                        }
                       </td>
                       <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-right truncate">
                         {account.transactionCount}

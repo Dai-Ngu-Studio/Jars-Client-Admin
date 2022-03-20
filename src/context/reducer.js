@@ -14,6 +14,8 @@ import {
   CHANG_PAGE,
   DISPLAY_ALERT,
   SET_DELETE_ACCOUNT,
+  GET_GOOGLE_ANALYTICS_BEGIN,
+  GET_GOOGLE_ANALYTICS_SUCCESS,
 } from "./action";
 
 const reducer = (state, action) => {
@@ -50,6 +52,18 @@ const reducer = (state, action) => {
       ...state,
       accounts: action.payload.accounts,
       numOfPages: action.payload.numOfPages,
+    };
+  }
+  if (action.type === GET_GOOGLE_ANALYTICS_BEGIN) {
+    return {
+      ...state,
+    };
+  }
+  if (action.type === GET_GOOGLE_ANALYTICS_SUCCESS) {
+    return {
+      ...state,
+      reportData: action.payload.reportData,
+      transactions: action.payload.transactions,
     };
   }
   if (action.type === SET_EDIT_ACCOUNT) {
