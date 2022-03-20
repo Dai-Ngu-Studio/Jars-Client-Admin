@@ -47,18 +47,18 @@ const initialState = {
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  let token;
-  auth.currentUser.getIdToken().then(async (idToken) => {
-    token = idToken;
-  });
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const authFetch = axios.create({
-    baseURL: "https://localhost:8001/api/v1",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
+  async function createAxios() {
+    return auth.currentUser.getIdToken().then(async (idToken) => {
+      return axios.create({
+        baseURL: "http://jars-api.software/api/v1",
+        headers: {
+          Authorization: "Bearer " + idToken,
+        },
+      });
+    });
+  }
 
   const handleChange = ({ name, value }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
@@ -85,6 +85,7 @@ const AppProvider = ({ children }) => {
 
     dispatch({ type: GET_ACCOUNTS_BEGIN });
     try {
+      let authFetch = await createAxios();
       const { data } = await authFetch(url);
       const { accounts, numOfPages } = data;
       dispatch({
@@ -123,6 +124,7 @@ const AppProvider = ({ children }) => {
         lastLoginDate,
       } = state;
       const tmp = isAdmin === "true" || isAdmin === "false";
+      let authFetch = await createAxios();
       await authFetch.put(`/accounts/${state.accountId}`, {
         id,
         isAdmin: tmp,
@@ -144,6 +146,7 @@ const AppProvider = ({ children }) => {
   const deleteAccount = async (id) => {
     dispatch({ type: DELETE_ACCOUNT_BEGIN });
     try {
+      let authFetch = await createAxios();
       await authFetch.delete(`/accounts/${id}`);
       getAccounts();
       dispatch({ type: DELETE_ACCOUNT_SUCCESS });
@@ -161,6 +164,7 @@ const AppProvider = ({ children }) => {
   const getGoogleAnalytics = async () => {
     dispatch({ type: GET_GOOGLE_ANALYTICS_BEGIN });
     try {
+      let authFetch = await createAxios();
       const { data } = await authFetch(`/cloud/analytics`);
       const { report, transactions } = data;
       dispatch({
