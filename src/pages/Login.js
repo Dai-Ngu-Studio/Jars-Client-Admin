@@ -4,6 +4,7 @@ import axios from "axios";
 import firebase, { auth } from "../firebase/config";
 
 const _login = async () => {
+  await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
   await auth
     .signInWithPopup(new firebase.auth.GoogleAuthProvider())
     .then(() => {
