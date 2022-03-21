@@ -83,11 +83,8 @@ const EditAccount = () => {
                     >
                       {isAdminOptions.map((itemValue, index) => {
                         return (
-                          <option
-                            key={index}
-                            value={itemValue === "Admin" ? true : false}
-                          >
-                            {itemValue}
+                          <option key={index} value={itemValue}>
+                            {itemValue ? "Admin" : "User"}
                           </option>
                         );
                       })}

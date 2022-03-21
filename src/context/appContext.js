@@ -33,15 +33,13 @@ const initialState = {
   lastLoginDate: "",
   photoUrl: "",
   transactionCount: 0,
-  isAdminOptions: ["Admin", "User"],
-  isAdmin: false,
+  isAdminOptions: [true, false],
+  isAdmin: true,
   accounts: [],
   numOfPages: 1,
   page: 1,
   size: 10,
   search: "",
-  report: {},
-  transactions: 0,
 };
 
 const AppContext = createContext();
@@ -123,7 +121,18 @@ const AppProvider = ({ children }) => {
         photoUrl,
         lastLoginDate,
       } = state;
-      const tmp = isAdmin === "true" || isAdmin === "false";
+      let tmp;
+      console.log(isAdmin);
+      console.log(typeof isAdmin);
+      if (typeof isAdmin === "string") {
+        if (isAdmin === "true") {
+          tmp = JSON.parse(isAdmin);
+        } else if (isAdmin === "false") {
+          tmp = JSON.parse(isAdmin);
+        }
+      } else if (typeof isAdmin === "boolean") {
+        tmp = isAdmin;
+      }
       let authFetch = await createAxios();
       await authFetch.put(`/accounts/${state.accountId}`, {
         id,
