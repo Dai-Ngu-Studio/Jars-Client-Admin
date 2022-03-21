@@ -8,7 +8,6 @@ const _login = async () => {
     .signInWithPopup(new firebase.auth.GoogleAuthProvider())
     .then(() => {
       auth.currentUser.getIdToken().then(async (idToken) => {
-        console.log(idToken);
         const bodyParameters = {}; //empty body
         const config = { headers: { Authorization: `Bearer ${idToken}` } };
         axios

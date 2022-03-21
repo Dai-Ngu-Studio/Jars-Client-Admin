@@ -122,8 +122,6 @@ const AppProvider = ({ children }) => {
         lastLoginDate,
       } = state;
       let tmp;
-      console.log(isAdmin);
-      console.log(typeof isAdmin);
       if (typeof isAdmin === "string") {
         if (isAdmin === "true") {
           tmp = JSON.parse(isAdmin);
